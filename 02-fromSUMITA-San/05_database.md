@@ -10,17 +10,17 @@
 
 | 項目               | 本番環境                              | 検証環境                      |
 |--------------------|---------------------------------------|-------------------------------|
-| クラスター名       | pro-bi-cluster                     | analytics-stg-cluster         |
+| クラスター名       | pro-bi-cluster                     | stg-bi-cluster         |
 | ノードタイプ       | ra3.xlplus                            | ra3.large                     |
 | ノード数           | 2（可用性・性能）                     | 1（コスト最適化）             |
 | スペクトラム利用   | 有（S3外部参照）                      | 有                            |
-| 停止/起動          | Pause/Resume をスケジュール運用       | 同左                          |
+| 停止/起動          | Pause/Resume をスケジュール運用       | 無し                          |
 | 認証               | IAM 一時認証 + Secrets Manager        | IAM 一時認証 + Secrets Manager |
 | 通信/暗号          | `require_ssl=0`、Enhanced VPC Routing = Disabled | 同左                          |
-| ログ/監査          | 監査ログを Cloudwatchへ出力            | 同左                          |
+| ログ/監査          | 監査ログを Cloudwatchへ出力            | S3                          |
 | WLM/QMR            | Auto WLM、有                         | Auto WLM                      |
 | Concurrency Scaling| 必要時に有効                          | 不要（既定は無効）            |
-| スナップショット   | 自動。7日保持     | 自動（短期保持）              |
+| スナップショット   | 自動。7日保持     | 自動。3日保持              |
 
 > 停止/起動は夜間のETL処理の一環として実施。
 > 処理開始のタイミングで起動し、完了したら停止を行う。
